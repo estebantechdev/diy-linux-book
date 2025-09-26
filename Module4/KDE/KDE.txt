@@ -73,3 +73,8 @@ Scroll down and you will see teh message: "The wayland windowing system."
 
 Non KDE applications could be verified in different ways.
 Some would required to download or build a versions with Wayland support, additionally.
+
+To reset your Konsole default profile
+-------------------------------------
+
+Go to Settings > Manage Profiles, then click New Profile to create a default profile from scratch, save it, and select it as the new default. For a more complete reset, delete all existing profile files from the ~/.local/share/konsole/ directory, then restart Konsole to allow it to recreate them.
