@@ -9,6 +9,10 @@ To display hardware information in graphical mode, use:
 $ lshw-gtk
 $ hardinfo
 
+Using CPU-X:
+$ sudo apt install cpu-x
+$ sudo cpu-x
+
 Hardware in the command line:
 
 lscpu:
@@ -71,6 +75,12 @@ The dmidecode command is different from all other commands. It extracts hardware
 $ sudo dmidecode -t processor
 $ sudo dmidecode -t memory
 $ sudo dmidecode -t bios
+
+Find information about my RAM:
+$ sudo dmidecode --type 17 | more
+
+Find maximum RAM capacity (GB):
+$ sudo dmidecode --type 16
 
 /proc files:
 Many of the virtual files in the /proc directory contain information about hardware and configurations. Here are some of them
