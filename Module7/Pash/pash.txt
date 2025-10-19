@@ -1,0 +1,417 @@
+Pash (by Dylan Araps) which is a simple shell-based password manager using GPG.
+
+Here’s how to use it (installation, configuration, commands, tips) based on its documentation and source:
+
+Installation & Setup
+---------------------
+
+Get the script
+
+You can clone or download pash from its GitHub repository: dylanaraps/pash
+
+Make it executable and install it
+
+For example:
+
+$ chmod +x pash
+$ sudo mv pash /usr/local/bin/
+
+Or place it somewhere in your PATH.
+
+Ensure dependencies
+
+You need gpg or gpg2 installed (for encryption/decryption).
+
+For clipboard support, xclip is often used by default.
+
+Configuration via Environment Variables
+---------------------------------------
+
+| Variable       | Purpose                                                             | Default / Notes                                       |
+| -------------- | ------------------------------------------------------------------- | ----------------------------------------------------- |
+| `PASH_KEYID`   | Specifies which GPG key (or email) to use for encryption/decryption | If unset, `pash` uses default behavior. ([GitHub][1]) |
+| `PASH_LENGTH`  | Length of generated passwords                                       | Default: 50 ([GitHub][1])                             |
+| `PASH_PATTERN` | Character set pattern used for password generation                  | Default: `_A-Z-a-z-0-9` ([GitHub][1])                 |
+| `PASH_DIR`     | Directory to store encrypted password files                         | Default: `~/.local/share/pash` ([GitHub][1])          |
+| `PASH_CLIP`    | Command to copy password to clipboard                               | Default: `xclip -sel c` ([GitHub][1])                 |
+| `PASH_TIMEOUT` | Timeout (in seconds) before clipboard is cleared                    | Default: 15 seconds ([GitHub][1])                     |
+
+[1]: https://github.com/dylanaraps/pash?utm_source=chatgpt.com "dylanaraps/pash: 🔒 A simple password manager using ..."
+
+Basic Usage & Commands
+----------------------
+
+Once installed and configured, you use pash with subcommands like:
+
+$ pash add web/gmail
+$ pash list
+$ pash show github
+$ pash copy github
+$ pash del example
+$ pash tree
+
+| Command / Alias     | Description                                                 |
+| ------------------- | ----------------------------------------------------------- |
+| `add [name]` / `a`  | Create a new password entry with the given name             |
+| `list` / `l`        | List all entries (flat list)                                |
+| `tree` / `t`        | Show entries in a tree structure                            |
+| `show [name]` / `s` | Decrypt & display the password for `name`                   |
+| `copy [name]` / `c` | Copy the password into the clipboard (clears after timeout) |
+| `del [name]` / `d`  | Delete the password entry                                   |
+
+When you call pash without arguments, it shows usage/help.
+
+You can do:
+
+$ pash show mysite/username
+
+It will generate a password (according to PASH_LENGTH & PASH_PATTERN) and store the encrypted file in PASH_DIR.
+
+To see it:
+
+$ pash show mysite/username
+
+To copy to clipboard:
+
+$ pash copy mysite/username
+
+The clipboard will be cleared after PASH_TIMEOUT seconds.
+
+To delete:
+
+$ pash del mysite/username
+
+Compatibility & Migration
+-------------------------
+
+pash is compatible with the store format of pass (the more known “password-store” tool) in many cases.
+
+You can set PASH_DIR and PASH_KEYID so that pash reads from the same store used by pass.
+
+Some users report successful migration: by reading .gpg-id and pointing PASH_DIR to the pass store.
+
+Caveats & Security Notes
+------------------------
+
+Because it’s a simple shell tool, it's relatively minimal; some features in more mature managers (like auto-typing, 2FA, secret sharing) may be missing.
+
+Be careful with clipboard history managers — some may keep history of copied content even after pash clears the clipboard. pash gives a default clipboard timeout, but that doesn’t guarantee pasting isn’t stored elsewhere.
+
+If you lose your GPG key (or passphrase), you lose access to stored passwords.
+
+Always keep backups of encrypted store (but not your private key).
+
+Since it's shell-based, avoid enabling set -x or debugging modes that might leak contents during operations
+
+Setting up pash step by step on your system (Ubuntu, Arch, etc.)
+----------------------------------------------------------------
+
+Step 1: Install dependencies
+
+You’ll need:
+
+GPG – for encryption/decryption
+
+xclip (or wl-clipboard if you use Wayland) – for clipboard support
+
+On Debian/Ubuntu:
+
+$ sudo apt update
+$ sudo apt install gnupg xclip
+
+On Arch/Manjaro:
+
+$ sudo pacman -S gnupg xclip
+
+Step 2: Download and install Pash
+
+$ git clone https://github.com/dylanaraps/pash.git
+$ cd pash
+$ chmod +x pash
+$ sudo mv pash /usr/local/bin/
+
+You can confirm installation:
+
+$ pash
+
+You should see the help menu.
+
+Step 3: Set up your GPG key
+
+If you don’t already have a GPG key, create one:
+
+$ gpg --full-generate-key
+
+Choose:
+
+Type: RSA and RSA
+
+Key size: 4096
+
+Validity: 0 (never expires)
+
+Add your name and email
+
+List your keys afterward:
+
+$ gpg --list-keys
+
+Example output:
+
+pub   rsa4096 2025-10-09 [SC]
+      1234ABCD5678EFGH1234567890ABCDEF12345678
+uid           [ultimate] Esteban Herrera <you@example.com>
+
+Copy that key ID (e.g., 1234ABCD5678EFGH1234567890ABCDEF12345678).
+
+Step 4: Configure Pash
+
+Create your config directory:
+
+$ mkdir -p ~/.config/pash
+
+Then, export or set your environment variables in your shell (or ~/.bashrc):
+
+$ export PASH_KEYID="your-key-id"
+$ export PASH_DIR="$HOME/.local/share/pash"
+$ export PASH_CLIP="xclip -selection clipboard"
+$ export PASH_TIMEOUT=15
+
+Reload your shell:
+
+$ source ~/.bashrc
+
+Step 5: Use Pash
+
+Add a password
+$ pash add github
+
+This creates an encrypted entry at:
+
+~/.local/share/pash/github.gpg
+
+Show the password
+$ pash show github
+
+Copy it to clipboard
+$ pash copy github
+
+It will auto-clear after 15 seconds.
+
+List all stored entries
+$ pash list
+
+Delete an entry
+$ pash del github
+
+Optional: Generate your own passwords
+
+If you want to create your own passwords before adding them:
+
+$ openssl rand -base64 24
+
+Or change PASH_LENGTH (default 50):
+
+$ export PASH_LENGTH=20
+
+Step 6: (Optional) Integrate with pass
+
+If you already use pass, you can make pash use the same store:
+
+$ export PASH_DIR="$HOME/.password-store"
+$export PASH_KEYID="$(cat ~/.password-store/.gpg-id)"
+
+Difference betrween pash add mysite/username pash add github examples
+---------------------------------------------------------------------
+
+The difference between:
+
+$ pash add mysite/username
+
+and
+
+$ pash add github
+
+is mainly organizational, not functional — both create encrypted password files, but the first one places it in a subdirectory structure.
+
+Password store
+
+File path examples:
+
+~/.local/share/pash/github.gpg
+~/.local/share/pash/mysite/username.gpg
+
+Example:
+
+$ pash add github/personal
+$ pash add github/work
+$ pash add google/main
+$ pash add google/backup
+
+Then pash tree would show:
+
+.
+├── github
+│   ├── personal.gpg
+│   └── work.gpg
+└── google
+    ├── main.gpg
+    └── backup.gpg
+
+How to list and search nested entries in Pash
+---------------------------------------------
+
+1. List All Entries
+
+The simplest way:
+
+$ pash list
+
+This prints a flat list of all password entries, including subdirectories.
+
+2. Show Tree View (Hierarchical)
+
+If you prefer a folder-style view:
+
+$ pash tree
+
+Ideal when you’ve grouped multiple passwords under the same category or service.
+
+3. Search for Specific Entries
+
+To find only entries matching part of a name, you can pipe the list to grep:
+
+$ pash list | grep github
+
+Example output:
+
+github/personal
+github/work
+
+Or search across all nested folders for a keyword:
+
+$ pash list | grep mysite
+
+This helps when you have a large number of entries.
+
+4. Filter or Count Entries (Optional)
+
+Count how many entries you have:
+
+$ pash list | wc -l
+
+List only entries under one folder:
+
+$ pash list | grep '^mysite/'
+
+5. Bonus: Open or Copy from a Search Result
+
+You can even combine it to directly copy a match:
+
+$ pash copy "$(pash list | grep github/work)"
+
+Or show it:
+
+$ pash show "$(pash list | grep mysite/username)"
+
+Backup the pash passwords to use them in another computer
+---------------------------------------------------------
+
+Backing up your Pash passwords (and restoring them on another machine) is very simple, because Pash uses only encrypted .gpg files — meaning you can safely copy them anywhere, as long as you also keep your GPG private key.
+
+1. Understand What You Need to Back Up
+
+To fully restore Pash on another computer, you need two things:
+
+| What                     | Description                         | Default Location                             |
+| ------------------------ | ----------------------------------- | -------------------------------------------- |
+| 🗂 **Password store**    | All encrypted `.gpg` password files | `~/.local/share/pash/` (or your `$PASH_DIR`) |
+| 🔑 **Your GPG key pair** | Used to decrypt passwords           | Stored in `~/.gnupg/`                        |
+
+Without your GPG key, the encrypted files are unreadable.
+
+2. Back Up on Your Current Computer
+
+You can use tar to back up both at once:
+
+$ tar -czvf ~/pash-backup.tar.gz ~/.local/share/pash ~/.gnupg
+
+Or, if you prefer, just back up the store:
+
+$ tar -czvf ~/pash-store.tar.gz ~/.local/share/pash
+
+Store this .tar.gz on a secure USB drive, encrypted volume, or cloud storage (preferably encrypted, too).
+
+3. Restore on Another Computer
+
+Step 1: Install dependencies and Pash
+
+On the new system:
+
+$ sudo apt install gnupg xclip
+$ git clone https://github.com/dylanaraps/pash.git
+$ cd pash
+$ sudo mv pash /usr/local/bin/
+
+Step 2: Restore backup
+
+Copy your .tar.gz to the new system and unpack it:
+
+$ tar -xzvf pash-backup.tar.gz -C ~/
+
+This restores:
+
+~/.local/share/pash/ (passwords)
+
+~/.gnupg/ (keys)
+
+Step 3: Fix permissions
+
+$ chmod 700 ~/.gnupg
+$ chmod 600 ~/.gnupg/*
+$ chmod -R 700 ~/.local/share/pash
+
+4. Verify GPG Key Import
+
+If you backed up .gnupg, you’re done.
+
+Otherwise, if you only copied the password files, you can manually export/import your GPG key:
+
+On your original computer:
+$ gpg --export-secret-keys --armor "Your Name or KeyID" > ~/privatekey.asc
+
+On your new computer:
+$ gpg --import ~/privatekey.asc
+
+5. Test the Restore
+
+Run:
+$ pash list
+
+Then:
+$ pash show github
+
+6. Security Recommendations
+
+Keep two copies of your backup (one offline, one offsite).
+
+Never store the .gnupg directory unencrypted in the cloud.
+
+If you use multiple computers, consider syncing only the password store (not the private key) via Git or rsync — but import the key manually on each trusted device.
+
+If you can decrypt successfully — your backup is valid
+
+Check out the script to automatically install and setup Pash.
+References:
+Topic: Pash automation
+File: ./Scripts/setup_pash.sh
+
+Topic: GnupPG
+Guide: Downloads integrity, gnome-keyring, gpg, gnupg, pgp, seahorse, Passwords and Keys
+Images:
+Basic keyring packages installation.png
+gnome-keyring program and keyring directories.png
+Passwords and Keys. Called with the command seahorse, a Front End for the command gnome-keyring.png
+Passwords and Keys.png
+Set your primary GPG signing key in Git.png
+Using GPG keys on GitHub (just follow their pages steps).png
