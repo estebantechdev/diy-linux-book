@@ -485,4 +485,4 @@ Improve the security of the system since the network:
 DIY Linux
 Author: Esteban Herrera
 Website: https://liquidsmok.hopto.org + http://liquidsmok.hopto.org
-Copyright © 2015 - 2023 Esteban Herrera. All rights are reserved.
+Copyright © 2015 - 2025 Esteban Herrera. All rights are reserved.
