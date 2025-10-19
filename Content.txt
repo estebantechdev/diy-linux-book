@@ -439,6 +439,7 @@ Improve the system security on local:
 [X] LUKS
 [X] Maldet
 [X] OpenSSL
+[✔] Pash
 [X] Rkhunter
 [X] SELinux
 [✔] Sysctl
