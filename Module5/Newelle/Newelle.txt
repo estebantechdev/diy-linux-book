@@ -1,15 +1,24 @@
 Install as flatpak from flathub
 
-$ flatpak install flathub io.github.qwersyk.Newelle
+$ sudo flatpak install flathub io.github.qwersyk.Newelle
 
 Install permissions:
 
-$ flatpak install flatseal
+$ sudo flatpak install flatseal
 
-Install AIs using API keys (OpenAI's, Geminini, Grok, etc.)
+Run:
+
+$ flatpak run io.github.qwersyk.Newelle
+
+Install AIs (LLMs) using API keys (OpenAI's, Gemini, Grok, etc.)
 
 Setup microphone and language (Gnome).
 
 Setup language:
 
 Voice to text > Google > en-US or es-ES
+
+
+References:
+Topic: Flatpak installation
+Guide: Flatpak
