@@ -1,0 +1,480 @@
+Content:
+WSL Commands
+Debian Installation
+Install Docker on Debian
+Manage Docker as a non-root user
+Configure Docker to start on boot with systemd
+Configure default logging driver
+Run the Docker daemon as a non-root user (Rootless mode)
+
+**This document contains the steps to install Debian Linux + Docker on Windows 10 with WSL. In case that you do not use WSL on Windows, install Debian on your hpst machine and follow the steps from the topic:
+Install Docker on Debian
+
+WSL Commands
+------------
+
+Use PowerShell or PowerShell inside Terminal for Windows.
+
+List existing WSL distributions:
+
+Run:
+
+> wsl -l
+> wsl -l -v
+> wsl --list --all --verbose
+
+Unregister the old Docker distros:
+
+If you see the docker-desktop and docker-desktop-data entries, remove them:
+
+> wsl --unregister docker-desktop
+> wsl --unregister docker-desktop-data
+
+These commands delete Docker’s internal WSL files (but not your images yet, because Docker will recreate them).
+
+Restart WSL service:
+
+Restart WSL service
+> net stop LxssManager
+> net start LxssManager
+
+Or simply:
+
+Restart-Service LxssManager
+
+Check your WSL version:
+
+> wsl --status
+
+Ensure WSL 2 is the default:
+
+> wsl --version
+> wsl --set-default-version 2
+
+Debian Installation
+-------------------
+> wsl.exe --list --online
+> wsl -l -o
+
+> wsl --install -d Debian
+
+Set user and password.
+
+Verify DEbian version:
+
+$ cat /etc/issue
+WSL is currently installing Debian 13, codename Trixie, by default.
+
+Exit:
+
+$ exit
+
+Poweroff:
+
+$ sudo poweroff
+
+Verify running/stopped status:
+> wsl -l -v
+
+Login next times:
+
+> wsl -l -v
+> wsl -d Debian
+> wsl -d Debian -- bash
+
+Go to my linux root "/" directory:
+$ cd /
+
+Go to my Windows user home directory:
+$ cd /mnt/c/Users/<user>
+
+Verify memory used:
+$ free -h
+
+Verify disk usage:
+$ df -h
+It uses around 500 MB.
+
+My user:
+whoami
+
+Debian 13, codename "Trixie" requires around 417 MB.
+
+Update the system:
+$ sudo apt-get -u upgrade
+
+Use the root user:
+
+$ sudo su
+
+To give a password to root:
+$ passwd
+
+Exit the root user:
+$ exit
+
+Install Docker on Debian
+-------------------------
+
+Run the following command to uninstall all conflicting packages:
+for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt-get remove $pkg; done
+
+Images, containers, volumes, and networks stored in /var/lib/docker/ aren't automatically removed when you uninstall Docker. If you want to start with a clean installation, and prefer to clean up any existing data, read the uninstall Docker Engine section.
+
+References:
+Web: https://docs.docker.com/engine/install/debian/
+
+# Add Docker's official GPG key:
+$ sudo apt-get update
+$ sudo apt install ca-certificates curl gnupg lsb-release -y
+$ sudo install -m 0755 -d /etc/apt/keyrings
+$ sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+$ sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+$ echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+$ sudo apt-get update
+
+Install the Docker packages:
+$ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+The Docker service starts automatically after installation. To verify that Docker is running, use:
+
+$ sudo systemctl status docker
+
+Some systems may have this behavior disabled and will require a manual start:
+
+$ sudo systemctl start docker
+
+Verify memory:
+$ free -h
+It stays it is at 471 MB.
+
+Verify CPU usage:
+$ top
+It stays at les than 1%.
+
+On Windows, in the task manager:
+CPU: 7%
+Memory: 6.5 GB (minus 3.5 GB of the system without Linux running: WSL uses around 3 GB including the 471 MB of Debian).
+
+Verify that the installation is successful by running the hello-world image:
+
+$ sudo docker run hello-world
+
+Manage Docker as a non-root user
+--------------------------------
+
+The Docker daemon binds to a Unix socket, not a TCP port. By default it's the root user that owns the Unix socket, and other users can only access it using sudo. The Docker daemon always runs as the root user.
+
+References:
+Web: https://docs.docker.com/engine/install/linux-postinstall
+
+If you don't want to preface the docker command with sudo:
+
+Create the docker group if it does not exist.
+
+$ cat /etc/group | grep "docker"
+
+$ sudo groupadd docker
+
+Add your user to the docker group.
+
+$ sudo usermod -aG docker $USER
+
+Log out and log back in so that your group membership is re-evaluated.
+
+If you're running Linux in a virtual machine, it may be necessary to restart the virtual machine for changes to take effect.
+
+Verify that you can run docker commands without sudo.
+
+$ docker run hello-world
+
+Configure Docker to start on boot with systemd
+----------------------------------------------
+
+Run the following commands:
+$ sudo systemctl enable docker.service
+$ sudo systemctl enable containerd.service
+
+To stop this behavior, use disable instead:
+$ sudo systemctl disable docker.service
+$ sudo systemctl disable containerd.service
+
+You can use systemd unit files to configure the Docker service on startup, for example to add an HTTP proxy, set a different directory or partition for the Docker runtime files, or other customizations. For an example, see Configure the daemon to use a proxy.
+References:
+Web: https://docs.docker.com/engine/install/linux-postinstall
+
+Configure default logging driver
+---------------------------------
+
+Docker provides logging drivers for collecting and viewing log data from all containers running on a host. The default logging driver, json-file, writes log data to JSON-formatted files on the host filesystem. Over time, these log files expand in size, leading to potential exhaustion of disk resources.
+
+To avoid issues with overusing disk for log data, consider one of the following options:
+
+1. Configure the json-file logging driver to turn on log rotation.
+
+2. Use an alternative logging driver such as the "local" logging driver that performs log rotation by default.
+
+3. Use a logging driver that sends logs to a remote logging aggregator.
+
+To use the json-file driver as the default logging driver, set the log-driver and log-opts keys to appropriate values in the daemon.json file, which is located in /etc/docker/ on Linux
+
+The following example sets the log driver to json-file and sets the max-size and max-file options to enable automatic log-rotation.
+
+```json
+{
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "10m",
+    "max-file": "3"
+  }
+}
+
+```
+
+log-opts configuration options in the daemon.json configuration file must be provided as strings. Boolean and numeric values (such as the value for max-file in the example above) must therefore be enclosed in quotes (").
+
+Restart Docker for the changes to take effect for newly created containers. Existing containers don't use the new logging configuration automatically.
+
+Example using the docker command:
+
+This example starts an alpine container which can have a maximum of 3 log files no larger than 10 megabytes each.
+
+$ docker run -it --log-opt max-size=10m --log-opt max-file=3 alpine ash
+
+Daemon configuration file:
+The --config-file option allows you to set any configuration option for the daemon in a JSON format.
+
+On Linux, the default location of the configuration file on Linux is /etc/docker/daemon.json. Use the --config-file flag to specify a non-default location.
+
+The --validate option allows to validate a configuration file without starting the Docker daemon. A non-zero exit code is returned for invalid configuration files.
+
+$ dockerd --validate --config-file=/tmp/valid-config.json
+
+The following is a full example of the allowed configuration options on Linux:
+
+```json
+{
+  "allow-direct-routing": false,
+  "authorization-plugins": [],
+  "bip": "",
+  "bip6": "",
+  "bridge": "",
+  "builder": {
+    "gc": {
+      "enabled": true,
+      "defaultKeepStorage": "10GB",
+      "policy": [
+        { "keepStorage": "10GB", "filter": ["unused-for=2200h"] },
+        { "keepStorage": "50GB", "filter": ["unused-for=3300h"] },
+        { "keepStorage": "100GB", "all": true }
+      ]
+    }
+  },
+  "cgroup-parent": "",
+  "containerd": "/run/containerd/containerd.sock",
+  "containerd-namespace": "docker",
+  "containerd-plugins-namespace": "docker-plugins",
+  "data-root": "",
+  "debug": true,
+  "default-address-pools": [
+    {
+      "base": "172.30.0.0/16",
+      "size": 24
+    },
+    {
+      "base": "172.31.0.0/16",
+      "size": 24
+    }
+  ],
+  "default-cgroupns-mode": "private",
+  "default-gateway": "",
+  "default-gateway-v6": "",
+  "default-network-opts": {},
+  "default-runtime": "runc",
+  "default-shm-size": "64M",
+  "default-ulimits": {
+    "nofile": {
+      "Hard": 64000,
+      "Name": "nofile",
+      "Soft": 64000
+    }
+  },
+  "dns": [],
+  "dns-opts": [],
+  "dns-search": [],
+  "exec-opts": [],
+  "exec-root": "",
+  "experimental": false,
+  "features": {
+    "cdi": true,
+    "containerd-snapshotter": true
+  },
+  "fixed-cidr": "",
+  "fixed-cidr-v6": "",
+  "group": "",
+  "host-gateway-ip": "",
+  "hosts": [],
+  "proxies": {
+    "http-proxy": "http://proxy.example.com:80",
+    "https-proxy": "https://proxy.example.com:443",
+    "no-proxy": "*.test.example.com,.example.org"
+  },
+  "icc": false,
+  "init": false,
+  "init-path": "/usr/libexec/docker-init",
+  "insecure-registries": [],
+  "ip": "0.0.0.0",
+  "ip-forward": false,
+  "ip-masq": false,
+  "iptables": false,
+  "ip6tables": false,
+  "ipv6": false,
+  "labels": [],
+  "live-restore": true,
+  "log-driver": "json-file",
+  "log-format": "text",
+  "log-level": "",
+  "log-opts": {
+    "cache-disabled": "false",
+    "cache-max-file": "5",
+    "cache-max-size": "20m",
+    "cache-compress": "true",
+    "env": "os,customer",
+    "labels": "somelabel",
+    "max-file": "5",
+    "max-size": "10m"
+  },
+  "max-concurrent-downloads": 3,
+  "max-concurrent-uploads": 5,
+  "max-download-attempts": 5,
+  "mtu": 0,
+  "no-new-privileges": false,
+  "node-generic-resources": [
+    "NVIDIA-GPU=UUID1",
+    "NVIDIA-GPU=UUID2"
+  ],
+  "pidfile": "",
+  "raw-logs": false,
+  "registry-mirrors": [],
+  "runtimes": {
+    "cc-runtime": {
+      "path": "/usr/bin/cc-runtime"
+    },
+    "custom": {
+      "path": "/usr/local/bin/my-runc-replacement",
+      "runtimeArgs": [
+        "--debug"
+      ]
+    }
+  },
+  "seccomp-profile": "",
+  "selinux-enabled": false,
+  "shutdown-timeout": 15,
+  "storage-driver": "",
+  "storage-opts": [],
+  "swarm-default-advertise-addr": "",
+  "tls": true,
+  "tlscacert": "",
+  "tlscert": "",
+  "tlskey": "",
+  "tlsverify": true,
+  "userland-proxy": false,
+  "userland-proxy-path": "/usr/libexec/docker-proxy",
+  "userns-remap": ""
+}
+
+```
+
+You can't set options in daemon.json that have already been set on daemon startup as a flag. On systems that use systemd to start the Docker daemon, -H is already set, so you can't use the hosts key in daemon.json to add listening addresses. See custom Docker daemon options for an example on how to configure the daemon using systemd drop-in files.
+
+Default network options:
+The default-network-opts key in the daemon.json configuration file, and the equivalent --default-network-opt CLI flag, let you specify default values for driver network driver options for new networks.
+
+Run the Docker daemon as a non-root user (Rootless mode)
+--------------------------------------------------------
+
+Rootless mode lets you run the Docker daemon and containers as a non-root user to mitigate potential vulnerabilities in the daemon and the container runtime.
+
+Rootless mode does not require root privileges even during the installation of the Docker daemon, as long as the prerequisites are met.
+References:
+https://docs.docker.com/engine/security/rootless/
+
+Prerequisites:
+You must install newuidmap and newgidmap on the host. These commands are provided by the uidmap package on most distributions.
+
+$ apt-cache search uidmap
+
+$ sudo apt-get install uidmap
+
+/etc/subuid and /etc/subgid should contain at least 65,536 subordinate UIDs/GIDs for the user. In the following example, the user testuser has 65,536 subordinate UIDs/GIDs (231072-296607).
+
+$ id -u
+
+```output
+1001
+```
+
+$ whoami
+
+```output
+testuser
+```
+
+$ grep ^$(whoami): /etc/subuid
+
+```output
+testuser:231072:65536
+```
+$ grep ^$(whoami): /etc/subgid
+
+```output
+testuser:231072:65536
+```
+
+The dockerd-rootless-setuptool.sh install script (see following) automatically shows help when the prerequisites are not satisfied.
+
+If the system-wide Docker daemon is already running, consider disabling it:
+
+$ sudo systemctl disable --now docker.service docker.socket
+$ sudo rm /var/run/docker.sock
+
+Should you choose not to shut down the docker service and socket, you will need to use the --force parameter in the next section. There are no known issues, but until you shutdown and disable you're still running rootful Docker.
+
+If you installed Docker 20.10 or later with RPM/DEB packages, you should have dockerd-rootless-setuptool.sh in /usr/bin.
+
+Run dockerd-rootless-setuptool.sh install as a non-root user to set up the daemon:
+
+$ cd /usr/bin && ./dockerd-rootless-setuptool.sh install
+
+If dockerd-rootless-setuptool.sh is not present, you may need to install the docker-ce-rootless-extras package manually, e.g.,
+
+$ sudo apt-get install -y docker-ce-rootless-extras
+
+Run docker info to confirm that the docker client is connecting to the Rootless daemon:
+
+$ docker info
+
+```output
+Client: Docker Engine - Community
+ Version:    28.3.3
+ Context:    rootless
+
+...
+
+```
+
+Verify that you can run docker commands without sudo.
+
+$ docker run hello-world
+
+Verify the service (Check status does not require sudo):
+$ systemctl status docker.service
+
+Next steps:
+Take a look at the Docker workshop to learn how to build an image and run it as a containerized application.
