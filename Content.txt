@@ -397,7 +397,7 @@ Video Recorders:
 Virtualization and the like:
 [X] Anbox
 [✔] Debootstrap
-[X] Docker
+[✔] Docker
 [X] Genymotion
 [X] GNOME Boxes
 [✔] KVM
