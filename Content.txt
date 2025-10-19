@@ -273,8 +273,9 @@ Enhanced Terminals:
 [X] WezTerm
 [X] Zsh
 [✔] Zplug, fzf, ripgrep, igrep, bat
-Electronics:
+Electronic:
 [X] KiCad
+[X] OpenBoardView
 [✔] Oregano
 [✔] Proteus
 Email:
