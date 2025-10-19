@@ -164,6 +164,7 @@ Assistants and other AIs:
 [X] Google Assistant
 [✔] KDEconnect
 [✔] LiSpeak
+[✔] Newelle
 [✔] Sirius
 Audio and Music:
 [✔] Audacity
