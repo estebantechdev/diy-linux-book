@@ -44,6 +44,11 @@ File: AppImage _ Linux apps that run anywhere.pdf
 Topic: List of Apps that use AppImage
 Web: https://bintray.com/probono/AppImages 
 File: AppImages - Generic - Bintray.pdf
+Topic: Want To Update Your AppImages? Try These Tools!
+Tools mentioned:
+AppImageUpdate, https://github.com/AppImageCommunity/AppImageUpdate
+appimage-cli-tool, https://github.com/AppImageCrafters/appimage-cli-tool
+Web: https://www.youtube.com/watch?app=desktop&v=V3i1R8qrGAg
 
 How can I install a .bin file:
 Go into a terminal and issue the following command in the directory where the bin file is,
