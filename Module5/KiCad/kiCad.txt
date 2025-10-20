@@ -1,0 +1,47 @@
+How to install a new theme in KiCad
+-----------------------------------
+
+Unzip the Theme File
+
+First, open your terminal and navigate to the directory where you downloaded the theme.
+
+Navigate to your Downloads folder (or wherever the file is)
+$ cd ~/Downloads
+
+Unzip the file
+$ unzip kikad-gruvbox-theme-main.zip
+
+This will create a new directory, usually named "kikad-gruvbox-theme-main"
+
+Copy the Theme Files
+Now, navigate into the unzipped theme folder and copy the .json theme files into the KiCad colors directory you just verified.
+
+Navigate into the unzipped folder
+$ cd kikad-gruvbox-theme-main
+
+Copy only the .json files to your KiCad colors directory
+(Again, replace '8.0' with your version if needed)
+
+$ cp *.json ~/.config/kicad/8.0/colors/
+
+The installation is now complete. The theme files are in the correct location for KiCad to find them.
+
+How to Activate the Theme in KiCad
+
+You must select the theme inside KiCad's preferences:
+
+Open KiCad.
+
+Go to the main menu and select Preferences -> Preferences...
+
+In the preferences window, navigate to the Colors section (under Schematic Editor or PCB Editor).
+
+At the bottom of the window, you will see a "Color theme" dropdown menu.
+
+Click the dropdown and select "Gruvbox Dark" or "Gruvbox Light" from the list.
+
+Click OK to save your changes.
+
+You may need to apply the theme to both the Schematic Editor and PCB Editor sections separately.
+
+Restart KiCad for all changes to take full effect.
