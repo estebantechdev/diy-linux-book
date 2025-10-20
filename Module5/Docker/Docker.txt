@@ -6,6 +6,7 @@ Manage Docker as a non-root user
 Configure Docker to start on boot with systemd
 Configure default logging driver
 Run the Docker daemon as a non-root user (Rootless mode)
+Install Docker Gordon AI in Linux
 
 **This document contains the steps to install Debian Linux + Docker on Windows 10 with WSL. In case that you do not use WSL on Windows, install Debian on your hpst machine and follow the steps from the topic:
 Install Docker on Debian
@@ -478,3 +479,33 @@ $ systemctl status docker.service
 
 Next steps:
 Take a look at the Docker workshop to learn how to build an image and run it as a containerized application.
+
+Install Docker Gordon AI in Linux
+---------------------------------
+
+References:
+Topic: Install Docker Desktop on Linux:
+Web: https://docs.docker.com/desktop/setup/install/linux/
+Topic: Install Docker Desktop on Debian:
+Web: https://docs.docker.com/desktop/setup/install/linux/debian/
+
+You can install Docker Desktop and just don't use it as your Docker GUI, but it is required for speaking with the Gordon AI in the terminal.
+
+Download the binary. For Debian, you will get the file: docker-desktop-amd64.deb
+
+Go to ~/Downloads
+
+$ cd ~/Downloads
+
+Install command:
+$ sudo apt-get install ./docker-desktop-amd64.deb
+
+This is going to install a lot of packages requiring almost 1GB of space. These packages include X server, etc.
+
+When ready, you can chat with the Gordon assistant using commands, like this:
+
+$ docker ai "What can you do"
+
+$ docker ai rate my Dockerfile
+
+The idea is that Gordon will help create and maintain your files such as Dockerfiles better than other AIs which constantly give you wrong information.
