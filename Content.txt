@@ -359,6 +359,7 @@ Synced Storage and Cloud Storage:
 [X] Nextcloud [web server]
 [X] OneDrive
 [X] Seafile [web server]
+[✔] Syncthing
 Teaching:
 [X] Key-mon
 [X] Screenkey
