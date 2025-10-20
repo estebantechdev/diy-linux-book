@@ -221,8 +221,8 @@ If you already use pass, you can make pash use the same store:
 $ export PASH_DIR="$HOME/.password-store"
 $export PASH_KEYID="$(cat ~/.password-store/.gpg-id)"
 
-Difference betrween pash add mysite/username pash add github examples
----------------------------------------------------------------------
+Difference between pash add mysite/username and pash add github examples
+------------------------------------------------------------------------
 
 The difference between:
 
@@ -399,7 +399,7 @@ Never store the .gnupg directory unencrypted in the cloud.
 
 If you use multiple computers, consider syncing only the password store (not the private key) via Git or rsync — but import the key manually on each trusted device.
 
-If you can decrypt successfully — your backup is valid
+If you can decrypt successfully — your backup is valid.
 
 Check out the script to automatically install and setup Pash.
 References:

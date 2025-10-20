@@ -1,0 +1,23 @@
+Install Syncthing in all the hosts sharing in the local/hosts network.
+
+$ sudo apt-get update
+
+$ sudo apt-get install syncthing
+
+Run the sevice:
+
+$ syncthing
+
+Open the web interface by pointing your browser at: https://127.0.0.1:8384/
+
+Set up a password for the server application.
+
+Send the Syncthing code of every machine in sync to the other machines in sync. You can complete this step using a single or multiple email accounts accesible in every machine in sync.
+
+Sync the default folder/directory in every machine is sync.
+
+Add the other machines to every machine in sync using the Syncthing code of every host.
+
+Add test files to the sync/ directory and check if every sync/ directory in every machine/host are syncing through the local/hosts network.
+
+Now, Syncthing is all aset.

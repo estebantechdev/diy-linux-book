@@ -1,3 +1,242 @@
+Content:
+1. Nvidia video cards
+2. ATI Radeon video Cards
+
+---------------------
+1. Nvidia cideo Cards
+---------------------
+
+Nvidia Drivers Installation on Debian 13, codename Trixie
+---------------------------------------------------------
+
+Content:
+Option 1. Downloading the Official Nvidia driver.
+Option 2. Using an extrepo external repo.
+
+Option 1. Downloading the Official Nvidia driver
+------------------------------------------------
+
+Nouveau is an open-source, free graphics driver for NVIDIA GPUs that is included by default in many Linux distributions. It is developed by independent engineers and is an alternative to NVIDIA's proprietary driver, which is known for better performance, especially in 3D and gaming. While Nouveau supports basic functionality and has seen recent improvements in areas like Vulkan and reclocking, it may not perform as well as the proprietary driver and may lack support for some advanced features.
+
+Nouveau makes work old cards, for example, the RTX 2060, but not all the card features will work.
+
+RTX 50XX and RTX 4070 series cards are not supported by the Nouveau driver and will result in a black screen. You’ll need an installer with a driver version higher than 550 on Debian, which was the latest available at the time this guide was published, comsidering that the current GNU/Linux Debian release is Debian 13, codename "Trixie".
+
+Start the computer.
+
+Enter the GRUB2 menu. Press 'e' to edit booting parameters.
+
+After "quite splash" complete the line like this:
+
+```plaintext
+quite splash nomodeset nouveau.modeset=0
+```
+
+Press F10 to save.
+
+Restart the computer. The system enters the desktop but yet the Nvidia card doesn't not work.
+
+Download the official driver from the Nvidia website.
+
+Open the ~/Downloads directory.
+
+Make the file executable.
+
+$ chmod +x NVIDIA-Linux-X86_64-580.76....run
+
+$ sudo apt-get update
+
+Download the Linux headers to compile.
+
+$ sudo apt install linux-headers-$(uname -r)
+
+$ sudo reboot now
+
+Enter the GRUB options again. Edit like:
+
+```plaintext
+quite splash nomodeset nouveau.modeset=0 systemd.unit=multi-user.target
+```
+
+Press F10 key to save changes and then reboot.
+
+Login in the console (no graphical login appears). Type in your user name and password.
+
+user: <your_user_name>
+password: <your_user_password>
+
+Go to ~/Downloads
+
+Run the installer
+
+$ sudo ./NVIDIA-Linux-X86_64-580.76....run
+
+The in-text-mode installer screen appears. It will ask for the type of installation, between Proprietary and MIT.
+
+Choose one option. If the installation fails, reinstall the drivers using the other option. Remeber that you need to reboot and modify the GRUB boot sequence again before proceed, due to the boot sequence change is temporary.
+
+During the installation of the driver, say yes to rebuild initramfs and to setup x11.
+
+Reboot.
+
+If the new driver fails, you can unistall it before re-install it.
+
+If the new driver works, blacklist Nouveau:
+
+$ sudo nano /etc/modprobe.d/blacklist-nouveau.conf
+
+File content:
+
+```plaintext
+blacklist nouveau
+options nouveau modset=0
+```
+
+Save the file.
+
+Write the following file for Wayland to work (not required for X11)
+
+$ sudo nano /etc/modprobe.d/nvidia-drm.conf
+
+File content:
+
+```plaintext
+options nvidia-drm modeset=1
+```
+
+Save the file with CTRL + o, ENTER KEY, CTRL + x.
+
+References:
+Topic: Understanding nvidia-drm.modeset=1 (NVIDIA Linux driver modesetting)
+Web: https://forums.developer.nvidia.com/t/understanding-nvidia-drm-modeset-1-nvidia-linux-driver-modesetting/204068
+
+Make the GRUB2 changes permanent:
+
+$ sudo nano /etc/default/grub
+
+Modify this line:
+
+```plaintext
+GRUB_CMDLINE_LINUX_DEFAULT='quiet splash'
+```
+
+Like:
+
+```plaintext
+GRUB_CMDLINE_LINUX_DEFAULT='nomodeset nouveau.modeset=0'
+```
+
+Update initramfs:
+
+$ sudo update-initramfs -u
+
+Or more verbose:
+
+$ sudo update-initramfs -u -v
+
+this might show messages like:
+
+```output
+update-initramfs: Generating /boot/initrd.img-6.10.9
+I: including module: nvidia
+I: including module: ext4
+I: including firmware: nvidia/545.29.06/gsp.bin
+I: initramfs 6.10.9 creation finished successfully
+
+```
+
+Update GRUB2:
+
+$ sudo update grub
+
+$ sudo reboot now
+
+Finally, test if the graphics card works as expected.
+
+Option 2. Using an extrepo external repo.
+-----------------------------------------
+
+Switch to the console using CTRL + F1, F2, etc.
+
+Login user.
+
+Switch to root user:
+
+$ sudo -s
+
+Install extrepo:
+
+# apt update
+# apt install extrepo
+
+Update ext repo:
+
+# extrepo update
+
+Search Nvidia:
+
+# extrepo search nvidia | less
+
+You will see the following result:
+
+```output
+Found nvidia-cuda-sbsa
+```
+
+# extrepo enable nvidia-cuda
+
+Check the new repo sources file:
+
+# ls /etc/apt/sources.list.d/
+
+You will get the file: nvidia-cuda.asc
+
+The URIs line of the file shows that this is a Debian 12 package, but the driver is fully compatible with Debian 13, codename "Trixie".
+
+Update the repository list:
+
+# apt-get update
+
+Installations:
+
+# apt install build-essential linux-headers-amd64
+
+Note that this command is using the amd64 architecture, and I do not know if there is a separate driver package that works with others such as ARM 64 or RISC V or if the single package listed does the work.
+
+Install the Nvidia drivers. For GTX cards use Nvidia Drivers, for RTX cards use Open Nvidia Drivers.
+
+For Unix, choose from Release, New features, or Beta. Beta is used for new gaming demands.
+
+# apt install nvidia- (press TAB key to check the list available)
+
+# apt install nvidia-open500
+
+During installation, if you are using secure repo boot, the program will create and sign a certificate.
+
+Final installations:
+
+# apt install mokutil
+
+# mokutil -l /var/lib/dkms/mok.pub
+
+Enter a new password.
+
+The password will be prompted the next reboot.
+
+Reboot:
+
+# reboot now
+
+The firmware notices that the certificate should be imported. You will see a blue screen with options. Choose option 2: "Enroll Mock". Enter the mokutil password and reboot again.
+
+Go to the machine BIOS and verify that the Secure Boot is enabled. Enable if disabled and then Reboot once more.
+
+Now, you should see the login screen, which means the graphics card is installed correctly. However you must configure it and test it to make sure it is ok.
+
+-------------------------
+2. ATI Radeon video Cards
+-------------------------
+
 The video card of the computer was recognized by the Debian Jessie installation, but what about the acceleration, is it working, and if yes how well? The Desktop shows some transparencies like the give by managers like xcompmgr but I am not sure.. Is all the GPU power turned on?
 
 I have installed previously Wheezy on this computer and noted that I could not see
