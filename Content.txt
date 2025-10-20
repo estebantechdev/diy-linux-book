@@ -353,7 +353,7 @@ Screen Recorders:
 [✔] SimpleScreenRecorder
 Synced Storage and Cloud Storage:
 [X] DrBd
-[X] Gogle Drive
+[X] Goggle Drive
 [✔] Hubic
 [✔] Mega
 [X] Nextcloud [web server]
