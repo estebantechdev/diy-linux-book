@@ -120,6 +120,7 @@ Settings:
 [✔] Change the default login screen
 [✔] Check hardware information
 [✔] Create a Bootsplash screen
+[✔] Configuring console setup
 [X] Decode Man pages
 [✔] Fonts
 [✔] Make a program the default option
@@ -241,6 +242,7 @@ Development Editors and IDEs:
 [✔] Netbeans IDE
 [X] PyDev
 [X] RStudio
+[X] RunJS
 [X] Spyder
 [✔] Sublime Text Editor
 [✔] TeXstudio
@@ -300,6 +302,7 @@ File Management:
 Finance:
 [X] Binance
 [X] Exodus
+[X] MetaTrader
 [X] Wasabi
 Games:
 [X] AssaultCube

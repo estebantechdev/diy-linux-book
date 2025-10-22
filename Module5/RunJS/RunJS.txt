@@ -1,0 +1,7 @@
+
+
+Web: https://runjs.app/
+
+Download the .deb package.
+Install using gdebi:
+$ sudo gdebi package.deb

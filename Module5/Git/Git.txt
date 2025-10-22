@@ -13,6 +13,10 @@ Topic: Git versions
 File: Git - Wikipedia (versions).pdf
 Web: https://en.wikipedia.org/wiki/Git
 
+Topic: Git Large File Storage - Git Large File Storage (LFS) replaces large files such as audio samples, videos, datasets, and graphics...
+Web: https://git-lfs.com/
+File: Git Large File Storage - Git Large File Storage (LFS) replaces large files such as audio samples, videos, datasets, and graphics.pdf
+
 Installation on Debian 11 codename Bullseye:
 
 Steps:
