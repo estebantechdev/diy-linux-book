@@ -70,4 +70,12 @@ $ sudo nano /etc/apt/sources.list
 $ sudo apt-get update
 $ sudo apt install fonts-arabeyes fonts-freefarsi fonts-lyx fonts-sil-gentium fonts-stix fonts-droid fonts-cantarell fonts-liberation ttf-dejavu fonts-oflb-asana-math fonts-mathjax xfonts-intl-arabic xfonts-intl-asian xfonts-intl-chinese xfonts-intl-chinese-big xfonts-intl-european xfonts-intl-japanese xfonts-intl-japanese-big ttf-dejavu ttf-liberation ttf-marvosym ttf-opensymbol ttf-summersby myspell-es ooo-thumbnailer
 
+tty - How to change the font of the text-mode console:
 
+$ sudo dpkg-reconfigure -plow console-setup
+
+References:
+File: tty - How to change the font of the text-mode console - Unix Linux Stack Exchange.pdf
+
+References:
+Guide: Configuring console setup.

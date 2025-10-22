@@ -1,0 +1,7 @@
+Run the following command:
+
+$ sudo dpkg-reconfigure -plow console-setup
+
+References:
+Topics: How to change the font of the text-mode console.
+Guide: Fonts

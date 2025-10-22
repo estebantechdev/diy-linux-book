@@ -120,6 +120,7 @@ Settings:
 [✔] Change the default login screen
 [✔] Check hardware information
 [✔] Create a Bootsplash screen
+[✔] Configuring console setup
 [X] Decode Man pages
 [✔] Fonts
 [✔] Make a program the default option
