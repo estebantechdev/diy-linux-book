@@ -399,12 +399,14 @@ Video Recorders:
 Virtualization and the like:
 [X] Anbox
 [✔] Debootstrap
+[X] Distrobox
 [✔] Docker
 [X] Genymotion
 [X] GNOME Boxes
 [✔] KVM
 [X] Kubernetes
 [X] Linux Containers
+[X] Pandoras
 [X] Podman
 [X] Vagrant [container]
 [✔] VirtualBox
