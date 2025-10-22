@@ -301,6 +301,7 @@ File Management:
 Finance:
 [X] Binance
 [X] Exodus
+[X] MetaTrader
 [X] Wasabi
 Games:
 [X] AssaultCube
