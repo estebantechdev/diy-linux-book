@@ -49,6 +49,8 @@ $ sudo nala install plasma-workspace-wayland
 References:
 Topic: What is Wayland.
 Web: https://wayland.freedesktop.org/
+Topic: Xorg Xserver VS Wayland
+Guide: Wayland vs X11 Display
 
 LightDM is a free and open-source X display manager that aims to be lightweight, fast, extensible and multi-desktop. It can use various front-ends to draw the user interface,[6] also called Greeters. It also supports Wayland.
 

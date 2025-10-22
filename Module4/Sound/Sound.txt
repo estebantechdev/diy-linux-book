@@ -1,5 +1,58 @@
 Audio card installation:
 I remember I had to change an old card on Debian Etch, and required to find a driver to install the generic driver AC'97 Sound or something like  that, and it worked! Most of cards are supported and installed during the system installation.
+
+Today, we have several sound server options to choose from. The most known are important ones are PulseAudio and PipeWire.
+
+Some Linux configurations, such as the Gnome desktop environment, currently use Pipewire instead of PulseAudio by default. You can normally use Pipewire or PulseAudio or both.
+
+Install pulseaudio. This is required to have pactl available:
+
+$ sudo apt-get install pulseaudio
+
+pactl, which is the command-line interface for the PulseAudio sound server, can typically interact with devices managed by PipeWire. This interoperability is because PipeWire is designed to be compatible with PulseAudio APIs and commands, allowing tools like pactl to work with both PulseAudio and PipeWire.
+
+However, it's essential to note that while pactl can often interact with PipeWire devices, there might be some limitations or differences in behavior compared to using it with PulseAudio directly.
+
+In case you want to use Pipewire instead of PulseAudio, install Pipewire like this:
+
+$ sudo apt-get install pipewire
+
+You can have both PulseAudio and PipeWire installed on the same system. They can coexist, and you can choose which one to use as the default audio server based on your preferences or requirements.
+
+If you want PipeWire to work with applications that rely on PulseAudio, you may want to install the PulseAudio compatibility layer for PipeWire:
+
+$ sudo apt-get install pipewire-pulse
+
+To determine whether your system is using PipeWire or PulseAudio:
+
+$ pactl info | grep "Server Name"
+
+To determine whether your system is using PipeWire or ALSA as the default audio server, you can check the status of the PipeWire service and ALSA Mixer.
+
+For PipeWire, you can check if the PipeWire service is running:
+
+$ systemctl --user restart pipewire
+
+$ systemctl --user status pipewire
+
+If the service is not working yet, this could require a system reboot.
+
+$ systemctl reboot
+
+For ALSA, you can check the status of the ALSA service or mixer. Note that ALSA doesn't have a centralized service like PipeWire or PulseAudio, but you can check the status of ALSA services or utilities:
+
+$ sudo alsactl restore
+
+This command restores the settings of the ALSA soundcard.
+
+Additionally, you can check the ALSA Mixer settings:
+
+$ alsamixer
+
+References:
+Topic: Install PulseAudio and PipeWire on a single desktop.
+Web: https://github.com/mydroidandi/commbase
+
 References:
 Topic: Install a Professional sound system in Debian. I also recommend you to take a look at the distro AVLinux.
 Guide: KXStudio
@@ -65,4 +118,3 @@ Web: http://wiki.linuxaudio.org/apps/start
 Guides: KXStudio, Record Sound Recorder, Manage traditional software repositories, Audacity.
 Topic: Installing USB soundcard in Virtual Machines
 Guide: KVM
-
