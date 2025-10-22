@@ -364,6 +364,7 @@ Synced Storage and Cloud Storage:
 [✔] Mega
 [X] Nextcloud [web server]
 [X] OneDrive
+[✔] Rclone
 [X] Seafile [web server]
 [✔] Syncthing [web server]
 Teaching:

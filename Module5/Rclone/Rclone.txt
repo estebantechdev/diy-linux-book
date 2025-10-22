@@ -1,0 +1,20 @@
+Rclone is an open-source, command-line program used for managing files in cloud storage, allowing you to copy, sync, move, and encrypt files between cloud providers or between a local computer and the cloud. It supports over 70 cloud storage providers, such as Google Drive, Dropbox, and Amazon S3, and can also mount a remote cloud folder as a local drive. Its features include robust error checking and the ability to resume interrupted transfers.
+
+Installation:
+To install rclone on Linux/macOS/BSD systems, run:
+$ sudo -v ; curl https://rclone.org/install.sh | sudo bash
+
+Create the "gdrive" remote:
+$ rclone config
+
+Log in using web browser when required.
+
+When the normal config finishes, on Google Drive, create links from the share directory to clone in local to the root of the Google drive:
+Make right click on the shared with you directory and give the link a name, for example: Arduino-Robotics.
+
+Here is the command that works to save logs to file:
+$ rclone copy gdrive:Arduino-Robotics ./ -v --log-file logs.txt
+
+Resources:
+Topic: Download and configuration
+https://rclone.org/drive/
