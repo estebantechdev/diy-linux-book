@@ -22,3 +22,9 @@ Voice to text > Google > en-US or es-ES
 References:
 Topic: Flatpak installation
 Guide: Flatpak
+
+Topic: Ollama Large Languge Models (LLMs), etc.
+Guide: Ollama
+
+
+
