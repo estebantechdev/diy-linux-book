@@ -1,7 +1,7 @@
 Audio card installation:
 I remember I had to change an old card on Debian Etch, and required to find a driver to install the generic driver AC'97 Sound or something like  that, and it worked! Most of cards are supported and installed during the system installation.
 
-Today, we have several sound server options to choose from. The most known are important ones are PulseAudio and PipeWire.
+Today, we have several sound server options to choose from. The most known and important ones are PulseAudio and PipeWire.
 
 Some Linux configurations, such as the Gnome desktop environment, currently use Pipewire instead of PulseAudio by default. You can normally use Pipewire or PulseAudio or both.
 
