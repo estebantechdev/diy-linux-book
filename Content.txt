@@ -73,12 +73,13 @@ Back-up, Emergency and Restore:
 [✔] Manage processes
 [X] Rsync
 [X] System Rescue
-Desktop Environments and Window Managers:
+Desktop Environments, Window Managers, and Tiling WMs:
 [X] Awesome
 [X] Cinnamon
 [✔] Fluxbox
 [✔] Gnome Desktop Icons, Themes and Cursors
 [✔] Gnome Shell Extensions
+[X] I3
 [X] IceWM
 [✔] KDE
 [X] LXDE
