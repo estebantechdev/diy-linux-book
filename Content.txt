@@ -159,7 +159,10 @@ Module 5 - Complete a custom environment by testing the most of software install
 Alternative Software Stores:
 [X] Flatpak
 [X] Snap
-Assistants and other AIs:
+AI:
+[X] Flowise [web server]
+[X] N8N [web server]
+AI Assistants:
 [X] Betty
 [X] Google Assistant
 [✔] KDEconnect
