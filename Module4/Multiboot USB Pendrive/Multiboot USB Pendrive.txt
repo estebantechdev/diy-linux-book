@@ -1,2 +1,45 @@
-Use YUMI for Windows, the "current" Debian version of teh softwar works but does not create the bootable USB memory
+Multi Boot Alternatives
+-----------------------
 
+Ventoy:
+
+References:
+Topic: Official dwnloads for Linux.
+Web: https://ventoy.net/en/doc_linux_gui.html
+
+Download the zip file, and go to the directory.
+Execute the version for your OS architecture, for example:
+
+sudo ./VentoyGUI.x86_64
+
+This will open the GUI.
+
+Remember to test your Pendrive to make sure it is able to boot from bootable images after the installation.
+
+YUMI:
+
+Use YUMI for Windows, the "current" Debian version of the software works but does not create the bootable USB memory.
+References:
+Topic: Official web site.
+Web: https://yumiusb.com/
+
+RUFUS:
+
+Only for Windows.
+
+Single Boot Alternatives
+------------------------
+
+Balena Etcher:
+
+Works perfectly but it is not Multiboot.
+
+References:
+Topic: Official wed site
+Web: https://etcher.balena.io/#download-etcher
+
+Topic: Releases. .deb installer.
+Web: https://github.com/balena-io/etcher/releases/
+
+Install .deb file using apt:
+$ sudo apt install ./balena-etcher_******_amd64.deb
