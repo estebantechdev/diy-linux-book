@@ -59,6 +59,9 @@ File: Xwayland on Debian Ubuntu 23.10 22.04 and Gnome 45_44_43_42.pdf
 
 2. **KDE Plasma:**
    - The KDE Plasma desktop environment has been making efforts to support Wayland, and it provides Wayland sessions for users.
+   References:
+   Topic: To install the Wayland support. (At the end you get both Xorg Xserver and Wayland on your computer and you choose which server type to use before login your desktop session.)
+   Guide: KDE
 
 3. **Xfce:**
    - Xfce is known for its lightweight nature, and while it traditionally used X11, there have been efforts to make it compatible with Wayland.
