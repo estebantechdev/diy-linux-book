@@ -3,7 +3,7 @@ Content:
 2. ATI Radeon video Cards
 
 ---------------------
-1. Nvidia cideo Cards
+1. Nvidia video Cards
 ---------------------
 
 Nvidia Drivers Installation on Debian 13, codename Trixie
@@ -12,6 +12,7 @@ Nvidia Drivers Installation on Debian 13, codename Trixie
 Content:
 Option 1. Downloading the Official Nvidia driver.
 Option 2. Using an extrepo external repo.
+Install CUDA Nvidia.
 
 Option 1. Downloading the Official Nvidia driver
 ------------------------------------------------
@@ -232,6 +233,19 @@ The firmware notices that the certificate should be imported. You will see a blu
 Go to the machine BIOS and verify that the Secure Boot is enabled. Enable if disabled and then Reboot once more.
 
 Now, you should see the login screen, which means the graphics card is installed correctly. However you must configure it and test it to make sure it is ok.
+
+Install CUDA Nvidia
+-------------------
+
+References:
+Topics:
+Sections:
+4.7. Windows Subsystem for Linux
+4.9 Debian
+7. Conda Installation
+8. Pip Wheels
+11. Post-installation Actions
+Web: Web: https://docs.nvidia.com/cuda/cuda-installation-guide-linux/
 
 -------------------------
 2. ATI Radeon video Cards
