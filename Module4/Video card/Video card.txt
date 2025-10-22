@@ -3,7 +3,7 @@ Content:
 2. ATI Radeon video Cards
 
 ---------------------
-1. Nvidia video Cards
+1. Nvidia video cards
 ---------------------
 
 Nvidia Drivers Installation on Debian 13, codename Trixie
