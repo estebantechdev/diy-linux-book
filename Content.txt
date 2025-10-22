@@ -408,6 +408,7 @@ Virtualization and the like:
 [X] Linux Containers
 [X] Pandoras
 [X] Podman
+[X] Proxmox
 [X] Vagrant [container]
 [✔] VirtualBox
 Windows:
