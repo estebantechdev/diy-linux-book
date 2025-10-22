@@ -163,7 +163,7 @@ AI:
 [X] Flowise [web server]
 [X] N8N [web server]
 [X] LLM Studio
-[✔] Ollama [web server]
+[✔] Ollama [HTTP server]
 AI Assistants:
 [X] Betty
 [X] Google Assistant
