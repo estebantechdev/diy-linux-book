@@ -241,6 +241,7 @@ Development Editors and IDEs:
 [✔] Netbeans IDE
 [X] PyDev
 [X] RStudio
+[X] RunJS
 [X] Spyder
 [✔] Sublime Text Editor
 [✔] TeXstudio
