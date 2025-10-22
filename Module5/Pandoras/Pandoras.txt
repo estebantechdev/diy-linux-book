@@ -1,0 +1,5 @@
+Universal Chroot environment that can be deployed to most Linux distributions, enabling the creation of portable boxes transferable from one host to another
+
+GitHub:
+https://github.com/estebanways/pandoras
+
