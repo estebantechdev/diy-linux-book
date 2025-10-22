@@ -1,0 +1,152 @@
+Download Ollama:
+
+Visit https://ollama.com/
+
+Choose Linux installation.
+
+Install with one command:
+$ curl -fsSL https://ollama.com/install.sh | sh
+
+The installation will:
+Download Ollama
+Install ollama to /usr/local/bin
+Create a symlink from /etc/systemd/system/default.target.wants/ollama.service to /etc/systemd/system/ollama.service.
+
+The Ollama API is now available at 127.0.0.1:11434.
+
+If no Nvidia GPU is detected, Ollama will let you know:
+WARNING: No NVIDIA/AMD GPU detected. Ollama will run in CPU-only mode.
+
+You can also follow this link for detailed GPU installation instructions: https://github.com/ollama/ollama/blob/main/docs/linux.md
+
+Install GPU Drivers. You can list the Nvidia GPU like this:
+
+$ nvidia-smi
+
+References:
+Video card.txt
+
+Verify that Ollama is working.
+
+The first time you run this command will install the chosen model, in this case Phi3 mini 128k instruct (2.2 GiB).
+
+$ ollama run phi3:mini-128k
+
+Model information:
+
+https://huggingface.co/microsoft/Phi-3-mini-128k-instruct
+
+https://ollama.com/library/phi3
+
+Type something in the CLI:
+
+>>> Who are you?
+ I am Phi, an AI developed by Microsoft to assist users with their queries and provide helpful
+information. How can I assist you today?
+
+>>> my name is John Smith
+ Hello John Smith! It's nice to meet you. How may I assist you today? Whether it's providing
+information or helping with a task, feel free to ask your question.
+
+>>> do you know my name?
+ Yes, John Smith. Nice to meet you as well. While I don't have personal knowledge since I don't
+possess consciousness, I can remember our interaction for the duration of this conversation
+based on data processing and memory algorithms. How may I assist you further?
+
+>>> please speak in English. Which languages do you speak in?
+ Certainly! Besides English, I am fluent in several other languages including Spanish, German,
+French, Italian, Mandarin, Russian, Portuguese, and Japanese. My capabilities extend to
+various levels across these languages depending on the context of our conversation, from
+casual dialogue to more technical discussions.
+
+>>> Which languages do you translate?
+ As an AI developed by Microsoft, I am capable of translating text across many languages. My language translation abilities are built upon a diverse dataset and advanced natural language processing
+algorithms that support numerous pairs including but not limited to:
+- English (en) - Spanish (es)
+- English (en) - French (fr)
+- English (en) - German (de)
+- English (en) - Chinese (zh)
+- English (en) - Arabic (ar)
+- Japanese (ja) - Korean (ko)
+- Russian (ru) - Ukrainian (uk)
+These translations help facilitate communication across different linguistic backgrounds. It is important to note, however, that while I strive for accuracy and fluency in translation, they may not
+always capture the full cultural nuance or tone of human language due to inherent complexities within languages.
+
+>>> In one paragraph, please tell me the story of Alice in Wonderland, and how many words you used to say it.
+ Once upon a timeless realm named Wonderland, young Alice tumbled down a rabbit hole from her
+family's peculiar garden, finding herself amidst an array of eccentric creatures like the
+whimsical Cheshire Cat, the maddeningly nonsensical Queen of Hearts, and the wise Caterpillar.
+In this topsy-turvy world governed by illogical rules, Alice embarked on a whirlwind adventure
+filled with bizarre riddles, perplexing tea parties that defied gravity, and conversations as
+befuddling as the inhabitants themselves. Along her journey of self-discovery through this
+paradoxical land, she grappled with absurdity while learning valuable life lessons about
+curiosity, courage, and acceptance. In total, I've used 105 words to narrate the enchanting
+tale of Alice in Wonderland.
+
+Notes:
+
+For ChatGPT the phi3 mini model failed calculating the number of words. It says there number is 104.
+
+You can use prompts like this or use Ollama system message to modify the model behavior with "custom instructions."
+
+The default language for the Phi3 SLM model is always English, and it cannot be configured to another language by default. If you need the model to understand and respond in another language, you should instruct it explicitly before starting. For example, you can say: "Let's speak French."
+
+List /set commands:
+
+>>> /set
+
+Set a system message:
+
+Use this:
+>>> /set system You are very precise when answering questions. Don't talk about yourself, what you can do for me, or even how you're going to help, unless you're asked to.
+
+Alternatively, you can create a Modelfile with a "custom instructions" prompt.
+
+Save the model name using commbase as prefix:
+
+>>> /save commbase-phi3-mini.
+
+You have saved it for later use.
+
+Exit the CLI:
+
+>>> /bye
+
+Open the new model name:
+
+$ ollama run commbase-phi3-mini
+
+Or from another model, use:
+
+>>> /load commbase-phi3-mini
+
+Loading model 'commbase-phi3-mini'
+
+Show the current model information:
+
+>>> /show info
+
+This will show the next information:
+
+Model details:
+Family              phi3
+Parameter Size      3.8B
+Quantization Level  Q4_K_M
+
+List your models list:
+
+$ ollama list
+
+Show more options:
+
+$ ollama --help
+
+Start and stop the Ollama service:
+
+$ systemctl start ollama.service
+
+$ systemctl stop ollama.service
+
+Ollama has a REST API for running and managing models.
+
+Developers can communicate with Ollama models using Python, JavaScript, or LangChain libraries.
