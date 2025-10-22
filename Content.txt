@@ -162,6 +162,8 @@ Alternative Software Stores:
 AI:
 [X] Flowise [web server]
 [X] N8N [web server]
+[X] LLM Studio
+[✔] Ollama [web server]
 AI Assistants:
 [X] Betty
 [X] Google Assistant
