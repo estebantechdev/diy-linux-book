@@ -7,6 +7,7 @@ Configure Docker to start on boot with systemd
 Configure default logging driver
 Run the Docker daemon as a non-root user (Rootless mode)
 Install Docker Gordon AI in Linux
+Troubleshooting
 
 **This document contains the steps to install Debian Linux + Docker on Windows 10 with WSL. In case that you do not use WSL on Windows, install Debian on your hpst machine and follow the steps from the topic:
 Install Docker on Debian
@@ -509,3 +510,36 @@ $ docker ai "What can you do"
 $ docker ai rate my Dockerfile
 
 The idea is that Gordon will help create and maintain your files such as Dockerfiles better than other AIs which constantly give you wrong information.
+
+Troubleshooting
+---------------
+
+I modified/corrected some GPG keys permissions, and now cannot login the Docker Desktop nor even with commands
+
+$ docker login
+
+Output:
+failed to store tokens: error storing credentials - err: exit status 1, out: `exit status 1: gpg: 01EAD4067A16DA99: skipped: Unusable public key
+gpg: [stdin]: encryption failed: Unusable public key
+Password encryption aborted.`
+
+The solution is to fix the GPG key (if you want encrypted storage)
+
+If you actually want to use GPG encryption with the pass helper:
+
+Check your GPG keys:
+$ gpg --list-secret-keys
+
+If none show up, create one:
+$ gpg --generate-key
+
+You can generate it or regenerate it with or without password and passphrase.
+
+Set it as default for pass:
+$ pass init "<YOUR_GPG_KEY_ID>"
+
+Re-login to Docker:
+$ docker logout
+$ docker login
+
+Go to the Docker Desktop Dashboard and it should work and login normally.
