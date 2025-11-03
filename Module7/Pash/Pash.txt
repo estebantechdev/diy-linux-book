@@ -1,6 +1,14 @@
 Pash (by Dylan Araps) which is a simple shell-based password manager using GPG.
 
-Here’s how to use it (installation, configuration, commands, tips) based on its documentation and source:
+Here’s how to use it (installation, configuration, commands, tips) based on its documentation and source.
+
+Content
+1. Pash password manager
+2. Automatic installation script
+
+---------------------
+Pash password manager
+---------------------
 
 Installation & Setup
 ---------------------
@@ -401,11 +409,6 @@ If you use multiple computers, consider syncing only the password store (not the
 
 If you can decrypt successfully — your backup is valid.
 
-Check out the script to automatically install and setup Pash.
-References:
-Topic: Pash automation
-File: ./Scripts/setup_pash.sh
-
 Topic: GnupPG
 Guide: Downloads integrity, gnome-keyring, gpg, gnupg, pgp, seahorse, Passwords and Keys
 Images:
@@ -415,3 +418,31 @@ Passwords and Keys. Called with the command seahorse, a Front End for the comman
 Passwords and Keys.png
 Set your primary GPG signing key in Git.png
 Using GPG keys on GitHub (just follow their pages steps).png
+
+-----------------------------
+Automatic installation script
+-----------------------------
+
+Check out the script to automatically install and setup Pash.
+References:
+Topic: Pash automation
+File: ./Scripts/setup_pash.sh
+
+Script Troubleshooting:
+-----------------------
+
+If you reinstall pash and and change the GPG Key ID:
+
+Reconfigure your environment:
+Make sure ~/.config/pash/env.sh contains:
+
+export PASH_KEYID="YOUR_LONG_KEY_ID"
+
+Then reload it:
+$ source ~/.config/pash/env.sh
+
+Try re-encrypting a password to test:
+$ pash add testsite/account
+$ pash show testsite/account
+
+If your GPG setup is correct, this time it should show the decrypted password.
