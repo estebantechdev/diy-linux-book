@@ -150,3 +150,39 @@ $ systemctl stop ollama.service
 Ollama has a REST API for running and managing models.
 
 Developers can communicate with Ollama models using Python, JavaScript, or LangChain libraries.
+
+
+CLI Commands summary
+---------------------
+
+⚙️ System & Configuration Commands
+
+/set – Open or modify configuration (likely before specifying a system prompt).
+
+/set system … – Redefines the system message or role for the assistant (e.g., personality, precision, behavior).
+
+/show – Displays current configuration or available information.
+
+/show system – Shows the active system prompt.
+
+/show info – Displays model or session information.
+
+/show license or /show licence – Displays license details.
+
+/show parameters – Lists model or runtime parameters.
+
+/system – Displays current system status.
+
+/save – Saves the current session or configuration.
+
+/save commbase-phi3, /save commbase-phi3-mini – Saves sessions with specific names.
+
+/load – Loads a previously saved configuration or session.
+
+💬 Session & Control Commands
+
+/bye – Ends or exits the current conversation/session.
+
+/? – Displays help or available commands.
+
+/show (repeated in this context) – Sometimes used for session information display.
