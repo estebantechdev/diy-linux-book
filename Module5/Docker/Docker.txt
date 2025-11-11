@@ -530,6 +530,14 @@ $ echo $DOCKER_HOST
 
 If it shows something like unix:///run/user/1000/docker.sock, Docker is running in rootless mode.
 
+To switch among contexts, use the docker context command:
+
+$ docker context use default
+
+$ docker context use rootless
+
+$ docker context use desktop-linux
+
 Troubleshooting
 ---------------
 
