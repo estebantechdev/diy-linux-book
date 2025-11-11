@@ -538,10 +538,15 @@ $ docker context use rootless
 
 $ docker context use desktop-linux
 
+Test the connection
+
+Run the following command to test the connection to the Docker daemon:
+
+$ docker info
+
 At this point you could restart the service:
 
 $ sudo systemctl restart docker
-
 
 Troubleshooting
 ---------------
