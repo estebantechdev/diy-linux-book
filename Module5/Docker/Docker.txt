@@ -7,6 +7,7 @@ Configure Docker to start on boot with systemd
 Configure default logging driver
 Run the Docker daemon as a non-root user (Rootless mode)
 Install Docker Gordon AI in Linux
+Change Docker Context
 Troubleshooting
 
 **This document contains the steps to install Debian Linux + Docker on Windows 10 with WSL. In case that you do not use WSL on Windows, install Debian on your hpst machine and follow the steps from the topic:
@@ -511,7 +512,10 @@ $ docker ai rate my Dockerfile
 
 The idea is that Gordon will help create and maintain your files such as Dockerfiles better than other AIs which constantly give you wrong information.
 
-Docker Desktop will change the Docker context (in our case from rootless to docker desktop):
+Change Docker Context
+---------------------
+
+The Docker Desktop installation will change the Docker context (in our case from rootless to docker desktop):
 
 $ docker context ls
 
