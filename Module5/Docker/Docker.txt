@@ -538,6 +538,11 @@ $ docker context use rootless
 
 $ docker context use desktop-linux
 
+At this point you could restart the service:
+
+$ sudo systemctl restart docker
+
+
 Troubleshooting
 ---------------
 
