@@ -511,6 +511,25 @@ $ docker ai rate my Dockerfile
 
 The idea is that Gordon will help create and maintain your files such as Dockerfiles better than other AIs which constantly give you wrong information.
 
+Docker Desktop will change the Docker context (in our case from rootless to docker desktop):
+
+$ docker context ls
+
+Output:
+
+NAME              DESCRIPTION                               DOCKER ENDPOINT                                    ERROR
+default           Current DOCKER_HOST based configuration   unix:///var/run/docker.sock
+desktop-linux *   Docker Desktop                            unix:///home/esteban/.docker/desktop/docker.sock
+rootless          Rootless mode                             unix:///run/user/1000/docker.sock
+
+Check the Docker socket
+
+In rootless mode, Docker uses a user-specific socket located at /run/user/<UID>/docker.sock. You can verify this by checking the DOCKER_HOST environment variable:
+
+$ echo $DOCKER_HOST
+
+If it shows something like unix:///run/user/1000/docker.sock, Docker is running in rootless mode.
+
 Troubleshooting
 ---------------
 
