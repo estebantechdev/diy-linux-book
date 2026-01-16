@@ -34,7 +34,7 @@ You can also contribute directly to the documentation with your comments.
 
 Thanks to the following people who have contributed to this project:
 
-* [@estebanways](https://github.com/estebanways)
+* [@estebantechdev](https://github.com/estebantechdev)
 
 ## Contact
 
@@ -43,4 +43,3 @@ If you want to contact us you can reach us at <stv.herrera@gmail.com>.
 ## License
 
 This project uses the following license: [`License`](./LICENSE).
-
