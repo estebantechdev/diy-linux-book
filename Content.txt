@@ -229,6 +229,7 @@ Desktop Enhancers:
 Development Editors and IDEs:
 [X] Anaconda
 [X] Android Studio
+[X] Antigravity
 [✔] Aptana Studio 3
 [X] Arduino IDE
 [X] Atom
@@ -240,6 +241,7 @@ Development Editors and IDEs:
 [X] MonoDevelop
 [✔] Neovim
 [✔] Netbeans IDE
+[X] Opencode
 [X] PyDev
 [X] RStudio
 [X] RunJS
@@ -499,4 +501,4 @@ Improve the security of the system since the network:
 DIY Linux
 Author: Esteban Herrera
 Website: https://liquidsmok.hopto.org + http://liquidsmok.hopto.org
-Copyright © 2015 - 2025 Esteban Herrera. All rights are reserved.
+Copyright © 2015 - 2026 Esteban Herrera. All rights are reserved.
