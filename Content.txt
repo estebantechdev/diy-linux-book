@@ -411,6 +411,7 @@ Video Recorders:
 Virtualization and the like:
 [X] Anbox
 [✔] Debootstrap
+[✔] DevPod
 [X] Distrobox
 [✔] Docker
 [X] Genymotion
