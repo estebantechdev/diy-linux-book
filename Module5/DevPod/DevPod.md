@@ -9,7 +9,7 @@ Website: <https://devpod.sh/>
 ### Install DevPod CLI
 
 ```shell
-$ curl -L -o devpod "https://github.com/loft-sh/devpod/releases/latest/download/devpod-linux-amd64" && sudo install -c -m 0755 devpod /usr/local/bin && rm -f devpod
+curl -L -o devpod "https://github.com/loft-sh/devpod/releases/latest/download/devpod-linux-amd64" && sudo install -c -m 0755 devpod /usr/local/bin && rm -f devpod
 ```
 
 ### Install DevPod Appimage
@@ -17,11 +17,11 @@ $ curl -L -o devpod "https://github.com/loft-sh/devpod/releases/latest/download/
 Download the Appimage for your OS and architecture.
 
 ```shell
-$ cd ~/Downloads
-$ sudo apt-get update
-$ sudo apt-get install fuse libfuse2 libopengl0 libfribidi0 libgles2-mesa
-$ chmod +x DevPod_linux_amd64.AppImage
-$ ./DevPod_linux_amd64.AppImage
+ cd ~/Downloads
+sudo apt-get update
+sudo apt-get install fuse libfuse2 libopengl0 libfribidi0 libgles2-mesa
+chmod +x DevPod_linux_amd64.AppImage
+./DevPod_linux_amd64.AppImage
 ```
 
 This opens the application.
