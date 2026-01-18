@@ -30,9 +30,9 @@ Define a provider, for example, Docker.
 
 Create a new workspace:
 
-Select a provider, IDE and source.
+Select a provider, IDE, and source.
 
-Ecample:
+Example:
 
 Provider: Docker
 
@@ -40,6 +40,6 @@ IDE: VS Code
 
 Source: /path/to/multiple-dev-container-vscode/
 
-When the workspace is created, click on the button "Open" to start your devcontainer project with VS Code.
+When the workspace is created, click on the button `Open` to start your devcontainer project with VS Code.
 
 DevPod opens the devcontainer project using VS Code.
