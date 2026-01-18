@@ -237,6 +237,7 @@ Development Editors and IDEs:
 [X] Brackets
 [X] Builder
 [✔] Code::Blocks
+[✔] DevPod
 [X] Kate
 [X] MonoDevelop
 [✔] Neovim
@@ -411,7 +412,6 @@ Video Recorders:
 Virtualization and the like:
 [X] Anbox
 [✔] Debootstrap
-[✔] DevPod
 [X] Distrobox
 [✔] Docker
 [X] Genymotion
