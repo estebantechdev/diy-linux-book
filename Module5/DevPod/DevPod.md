@@ -21,7 +21,7 @@ Download the Appimage for your OS and architecture.
 sudo apt-get update
 sudo apt-get install fuse libfuse2 libopengl0 libfribidi0 libgles2-mesa
 chmod +x DevPod_linux_amd64.AppImage
-./DevPod_linux_amd64.AppImage
+./DevPod_linux_amd64.AppImage &
 ```
 
 This opens the application.
