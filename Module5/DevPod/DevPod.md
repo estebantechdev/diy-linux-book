@@ -43,7 +43,3 @@ Source: /path/to/multiple-dev-container-vscode/
 When the workspace is created, click on the button "Open" to start your devcontainer project with VS Code.
 
 DevPod opens the devcontainer project using VS Code.
-
-For the example project, notice that it will open the Node container by default.
-
-Project files: **(docker stacks)/practical-docker/multiple-dev-container-vscode/**.
